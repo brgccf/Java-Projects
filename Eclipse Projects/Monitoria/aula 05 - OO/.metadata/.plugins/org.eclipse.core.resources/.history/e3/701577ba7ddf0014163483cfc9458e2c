@@ -1,0 +1,12 @@
+package exercicios;
+
+public class Vaca {
+	private String nome;
+	private int idade;
+	private double peso;
+	private int alimento;
+	public Vaca(String nome, int idade, double peso, int alimento){
+		
+	}
+
+}

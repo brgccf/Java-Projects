@@ -1,0 +1,11 @@
+package Exercicio1;
+import java.util.Scanner;
+public class TestaAluno {
+	public static void main (String [] args){
+		Scanner in = new Scanner (System.in);
+		String cpf, nome, nomecurso, codigo;
+		int idade;
+		Curso curso = new Curso (nomecurso, codigo);
+		System.out.println("Digite seu nome: ");
+	}
+}

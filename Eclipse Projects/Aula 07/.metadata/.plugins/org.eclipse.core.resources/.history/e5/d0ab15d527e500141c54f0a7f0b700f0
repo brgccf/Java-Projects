@@ -1,0 +1,18 @@
+package Exercicio1;
+
+public class Aluno {
+	private String nome;
+	private String cpf;
+	private int idade;
+	private String curso;
+	public Aluno (String nome, String cpf, int idade, String curso){
+		this.nome = nome;
+		this.curso = curso;
+		this.cpf = cpf;
+		this.idade = idade;
+	}
+	
+	public String getNome(){
+		return this.nome;
+	}
+}

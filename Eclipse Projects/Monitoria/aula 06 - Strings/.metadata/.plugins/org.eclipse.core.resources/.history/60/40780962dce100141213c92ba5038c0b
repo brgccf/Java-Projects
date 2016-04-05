@@ -1,0 +1,32 @@
+import java.util.Scanner;
+public class Questao {
+	public static void main(String [] args){
+		Scanner in = new Scanner(System.in);
+		System.out.println("Digite a primeira String; ");
+		String primeiraStr = in.nextLine();
+		primeiraStr = convert(primeiraStr);
+		System.out.println("Digite a sua segunda String: ");
+		String segundaStr = in.nextLine();
+		segundaStr = convert(primeiraStr);
+		System.out.println("Digite a sua terceira String: ");
+		String terceiraStr = in.nextLine();
+		terceiraStr = convert(primeiraStr);
+		
+		in.close();
+		}
+	
+	public static String convert(String entrada){
+		String nova = "";
+		for (int i=0; i < entrada.length(); i++){
+			
+			
+			
+		}
+		
+		
+		
+		
+		
+	}
+
+}

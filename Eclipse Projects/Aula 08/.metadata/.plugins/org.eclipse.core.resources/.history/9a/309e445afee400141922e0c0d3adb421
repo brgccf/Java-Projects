@@ -1,0 +1,17 @@
+package Exercicios;
+
+public class Multiplicacao {
+	
+	public int Produto (int a, int b){
+		int resposta = 0;
+		if (a > 0){
+			resposta = b + Produto(a-1, b);
+		}
+		return resposta;
+	}
+	
+	public static void main (String [] args){
+		
+	}
+
+}

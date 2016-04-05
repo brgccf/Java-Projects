@@ -1,0 +1,11 @@
+package exercicios;
+
+public class Pessoa {
+	private String nome;
+	
+	//contrutor:
+	public Pessoa(String nome){
+		
+		
+	}
+}

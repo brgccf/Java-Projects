@@ -1,0 +1,13 @@
+package aula1;
+import java.util.Scanner;
+public class FirstClass {
+	public static void main (String [] args){
+		Scanner in = new Scanner (System.in);
+		//A classe String representa uma cadeia de caracteres, 
+		//é criada por java.lang.String
+		//Sring nome = "monitoria"
+		//Modulo(%) é quando se divide a e b armazenando seu resto
+		
+	}
+
+}

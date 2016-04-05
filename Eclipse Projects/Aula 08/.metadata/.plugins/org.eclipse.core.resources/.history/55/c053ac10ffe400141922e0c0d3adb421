@@ -1,0 +1,23 @@
+package Exercicios;
+import java.util.Scanner;
+public class Multiplicacao {
+	
+	public int Produto (int a, int b){
+		int resposta = 0;
+		if (a > 0){
+			resposta = b + Produto(a-1, b);
+		}
+		return resposta;
+	}
+	
+	
+	public static void main (String [] args){
+		Scanner in = new Scanner (System.in);
+		int a, b;
+		System.out.println("Digite a: ");
+		a = in.nextInt();
+		System.out.println("Digite b: ");
+		b = in.nextInt();
+	}
+
+}

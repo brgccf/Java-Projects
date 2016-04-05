@@ -1,0 +1,10 @@
+package Exercicio1;
+
+public class Curso {
+	private String codigo;
+	private String nome;
+	public Curso (String codigo, String nome){
+		this.codigo = codigo;
+		this.nome = nome;
+	}
+}
