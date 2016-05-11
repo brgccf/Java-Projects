@@ -1,0 +1,18 @@
+package brgccfStreams;
+
+import java.net.Socket;
+//nesta classe devemos
+public class Reader implements Runnable { //Runnable possui os metodos obrigatorios de threads (Run)
+	
+	private Socket server;
+	
+	public Reader()
+	{
+		
+	}
+	
+	public void run(){
+		
+	}
+
+}

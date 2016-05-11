@@ -18,17 +18,17 @@ public class Leitor implements Runnable {
 				/* caso a Thread tenha recebido sinal de interrpção, retorna
 				 * note que isto não é obrigatório para este caso
 				 */
-				if (Thread.currentThread().isInterrupted()) return;
-				else {
-					entrada = socketEntrada.readLine();
-					if(entrada.equals("exit")) { // caso um comando de sair tenha sido recebido
-						this.servidor.close(); // fecha o socket
-						System.out.println("Interrompeu Leitor"); 
-						Thread.currentThread().interrupt(); // interrompe Thread de leitura
-					} else { // caso contrário reenvia o texto
-						System.out.println(entrada);
-					}
+			
+			
+				entrada = socketEntrada.readLine();
+				if(entrada.equals("exit")) { // caso um comando de sair tenha sido recebido
+					this.servidor.close(); // fecha o socket
+					System.out.println("Interrompeu Leitor"); 
+					Thread.currentThread().interrupt(); // interrompe Thread de leitura
+				} else { // caso contrário reenvia o texto
+					System.out.println(entrada);
 				}
+			
 			}
 		} catch(Exception e) {
 			System.out.println("Interrompeu Leitor Exception com " + e.getMessage());

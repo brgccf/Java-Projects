@@ -7,7 +7,7 @@ import Streams.*;
 public class MainCliente extends Thread {
 	public static void main(String []args){
 		try{
-			Socket cliente = new Socket("G5C16",3000);	
+			Socket cliente = new Socket("G3C38",3555);	
 			
 			(new Thread(new Leitor(cliente))).start(); // cria a thread de leitura da entrada
 			

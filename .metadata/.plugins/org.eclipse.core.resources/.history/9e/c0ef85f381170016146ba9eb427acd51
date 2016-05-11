@@ -1,0 +1,9 @@
+package brgccfStreams;
+
+import Streams.*;
+
+public class Writer implements Runnable {
+	
+	
+
+}

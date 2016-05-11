@@ -1,0 +1,19 @@
+package brgccfStreams;
+
+import java.net.Socket;
+//nesta classe devemos ler o stram de writer (input stream)
+public class Reader implements Runnable { //Runnable possui os metodos obrigatorios de threads (Run)
+	
+	private Socket server;
+	
+	public Reader(Socket socket)
+	{
+		this.server = socket;
+	}
+	
+	public void run(){
+		//pegar stram de entrada jogando no buffer
+		
+	}
+
+}
