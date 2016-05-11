@@ -3,7 +3,6 @@ package brgccfStreams;
 import java.io.DataOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
-import Streams.*;
 //esta classe vai ler a entrada do teclado para enviar para o socket
 public class Writer implements Runnable {
 	
@@ -22,15 +21,32 @@ public class Writer implements Runnable {
 			Scanner scan = new Scanner (System.in);
 			while(true)
 			{
-				if(Thread.currentThread().isInterrupted()) return;
-				
+				if(Thread.currentThread().isInterrupted()) return; //se estiver interrompida volta ao inicio do laço
+				else
+				{
+					message = scan.nextLine();
+					
+					if(message.equals("exit")){
+						socketOut.writeBytes(message+'\n'); //envia o comando de saida
+						socketOut.flush(); //força todos os bytes a serem enviados na stream
+						this.server.close(); //fecha o servidor
+						System.out.println("Writer interrupted!");
+						Thread.currentThread().interrupt();
+					}
+					else{
+						socketOut.writeBytes(message+'\n'); //escrevendo no socket
+					}
+				}
 			}
 		}
 		catch(Exception e)
 		{
-			
+			System.out.println("Interrupted Writer with Exception: " + e.getMessage());
+			Thread.currentThread().interrupt();
 		}
+		
 	}
+	
 	
 
 }

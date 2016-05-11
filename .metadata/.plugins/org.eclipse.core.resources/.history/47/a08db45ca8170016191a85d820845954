@@ -1,0 +1,20 @@
+package brgccf.server;
+
+import java.net.ServerSocket;
+
+public class MainServer extends Thread {
+
+	public static void main(String[] args) {
+		try{
+			ServerSocket server = new ServerSocket(3500);
+		}
+		
+		catch(Exception e)
+		{
+			System.out.println("Server error Exception: " + e.getMessage());
+		}
+		
+
+	}
+
+}

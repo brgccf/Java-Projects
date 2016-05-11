@@ -1,0 +1,22 @@
+package brgccf.Client;
+import java.net.Socket;
+import brgccfStreams.*;
+
+public class MainClient extends Thread {
+	public static void main(String []args)
+	{
+		try{
+			Socket client = new Socket("localhost", 3500);
+			Reader read = new Reader(client);
+			Writer write = new Writer(client);
+			read.run(); //criar thread de leitura de entradas
+			write.run(); //criar thread de envio
+		}
+		catch(Exception e){
+			System.out.println("Erro main: " + e.getMessage());
+		}
+		
+		
+	}
+
+}

@@ -3,7 +3,6 @@ package brgccfStreams;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.Socket;
-import java.util.*;
 //nesta classe devemos ler o stram de writer (input stream)
 public class Reader implements Runnable { //Runnable possui os metodos obrigatorios de threads (Run)
 	
@@ -24,12 +23,23 @@ public class Reader implements Runnable { //Runnable possui os metodos obrigator
 				/* caso a Thread tenha recebido sinal de interrpção, retorna
 				 * note que isto não é obrigatório para este caso
 				 */
-				
+				entry = socketEntrada.readLine();
+				if(entry.equals("exit")) //caso um comando de sair tenha sido recebido
+				{
+					this.server.close(); //fecha o socket
+					System.out.println("interrupted Reader!");
+					Thread.currentThread().interrupt(); //interrompendo thread de leitura
+				}
+				else //caso contrario devemos imprimir o texto recebido
+				{
+					System.out.println(entry);
+				}
 			}
 		} 
 		catch(Exception e)
 		{
-			
+			System.out.println("Reader interrupted by exception: " + e.getMessage());
+			Thread.currentThread().interrupt(); //interrompe thread de leitura
 		}
 	}
 	
