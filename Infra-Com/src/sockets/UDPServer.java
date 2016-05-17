@@ -16,7 +16,7 @@ class UDPserver {
 			inFromClient = new String(receivePacket.getData()); //colocando na string os dados recebidos
 			clientIP = receivePacket.getAddress(); //pegando o IP e porta do pacote que chegou
 			port = receivePacket.getPort();
-			//System.out.println(inFromClient);
+			System.out.println(inFromClient);
 			
 			outToClient = inFromClient.toUpperCase();
 			sendData = outToClient.getBytes();

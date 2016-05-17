@@ -1,0 +1,18 @@
+package sockets;
+
+import javax.swing.JLabel;
+
+public class RTTClient implements Runnable {
+
+	private JLabel label;
+	public RTTClient(JLabel label)
+	{
+		this.label = label;
+	}
+	
+	public void run() {
+		
+		
+	}
+
+}

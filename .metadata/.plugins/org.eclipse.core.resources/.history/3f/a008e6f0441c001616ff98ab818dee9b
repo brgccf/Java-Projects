@@ -1,0 +1,11 @@
+package sockets;
+
+public class RTTClient implements Runnable {
+
+	
+	public void run() {
+		
+		
+	}
+
+}
