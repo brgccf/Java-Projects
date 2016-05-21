@@ -1,0 +1,50 @@
+package sockets;
+
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.sql.Connection;
+public class TCPServer {
+
+	public static void main(String[] args) {
+		/*
+		 * deve conter
+		 * socket de boas vindas
+		 * socket de conexao
+		 * buffer de saida
+		 * 
+		 */
+			try {
+				int serverPort = 5050;
+				ServerSocket serverSocket = new ServerSocket(serverPort); //boas vindas
+				Socket connectSocket = serverSocket.accept(); //conexao
+				BufferedOutputStream outToClient = new BufferedOutputStream(connectSocket);
+				System.out.println("Waiting for Client...");
+				while(true)
+				{
+					Socket client = serverSocket.accept();
+					//communicate with the client
+					int bufferSize = client.getReceiveBufferSize();
+					System.out.println("buffer size = " + bufferSize);
+					DataInputStream in = new DataInputStream(client.getInputStream());
+					DataOutputStream out = new DataOutputStream(client.getOutputStream());
+					out.writeUTF("Hello Client World!");
+					String results = in.readUTF();
+					System.out.println("Message from client: " + results);
+					
+				}
+				
+				
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+			
+			
+		
+	}
+
+}

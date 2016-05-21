@@ -1,8 +1,0 @@
-package brgccf.Client;
-import java.net.Socket;
-
-import Streams.*;
-
-public class MainClient {
-
-}

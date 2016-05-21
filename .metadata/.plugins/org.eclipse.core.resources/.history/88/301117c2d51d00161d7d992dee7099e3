@@ -1,0 +1,19 @@
+package sockets;
+
+import java.net.Socket;
+
+public class TCPClient {
+	private Socket client;
+	
+	public TCPClient(Socket client){
+		this.client = client;
+	}
+	
+	public static void main(String[] args) throws Exception{
+		Socket sock = new Socket("PC", 2000);
+		while(true)
+		{
+			
+		}
+	}
+}

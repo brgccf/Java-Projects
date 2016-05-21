@@ -2,6 +2,8 @@ package sockets;
 import java.net.*;
 import java.util.Scanner;
 class UDPclient {
+	//camada transporte sao processos interligados
+	//camada de rede sao hosts interligados
 	public static void main(String args[]) throws Exception {
 		while(true){
 			String inFromUser = System.nanoTime() +""; //entrada do usuário

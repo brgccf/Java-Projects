@@ -1,0 +1,15 @@
+package sockets;
+
+import java.net.DatagramSocket;
+import java.net.Socket;
+import java.util.Scanner;
+public class TCPClient {
+
+	public static void main(String[] args) throws Exception{
+		Socket sock = new Socket("localhost", 5050); //socket com IPServer e portaServer
+		while(true)
+		{
+			
+		}
+	}
+}

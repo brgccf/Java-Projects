@@ -1,0 +1,21 @@
+package sockets;
+
+import java.io.ByteArrayOutputStream;
+import java.net.DatagramSocket;
+import java.net.Socket;
+import java.util.Scanner;
+public class TCPClient {
+
+	public static void main(String[] args) throws Exception{
+		try
+		{
+			Socket sock = new Socket("localhost", 5050); //socket com IPServer e portaServer	
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println("Problema com TCPCliente: " + e.getMessage());
+		}
+		ByteArrayOutputStream data = new ByteArrayOutputStream();
+	}
+}

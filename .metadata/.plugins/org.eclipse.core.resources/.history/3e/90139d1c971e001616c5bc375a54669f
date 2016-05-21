@@ -1,0 +1,14 @@
+package sockets;
+
+import java.io.ByteArrayOutputStream;
+import java.net.DatagramSocket;
+import java.net.Socket;
+import java.util.Scanner;
+public class TCPClient {
+	private Socket clientSocket = null;
+	
+
+	public static void main(String[] args) throws Exception{
+		
+	}
+}

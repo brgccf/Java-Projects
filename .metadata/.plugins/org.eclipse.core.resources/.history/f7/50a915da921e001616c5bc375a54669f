@@ -1,0 +1,49 @@
+package sockets;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
+public class TCPServer {
+	
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		/*
+		 * deve conter
+		 * socket de boas vindas
+		 * socket de conexao
+		 * buffer de saida
+		 * input stram de arquivo
+		 */
+		try {
+			int serverPort = 5050;
+			ServerSocket serverSocket = new ServerSocket(serverPort); //boas vindas
+			Socket connectSocket = serverSocket.accept(); //conexao
+			BufferedOutputStream outToClient = new BufferedOutputStream(connectSocket.getOutputStream());
+			System.out.println("Waiting for Client...");
+			
+		} 
+		catch (IOException e) {
+			
+			System.out.println("Erro no servidor: " + e.getMessage());;
+		}
+		
+		while(true)
+		{
+			try
+			{
+				String wayFile = in.nextLine();
+				File myFile = new File(wayFile); //found file to send
+				byte[] arrayBytesFile = new byte[(int) myFile.length()]; //array de bytes do tamanho do arquivo 
+			}
+			catch(Exception e)
+			{
+				System.out.println("erro de servidor: " + e.getMessage());
+			}
+		}
+		
+	}
+
+}

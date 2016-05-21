@@ -1,0 +1,14 @@
+package sockets;
+
+import java.net.Socket;
+
+public class TCPClient {
+
+	public static void main(String[] args) throws Exception{
+		
+		while(true)
+		{
+			
+		}
+	}
+}

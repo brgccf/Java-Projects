@@ -1,0 +1,33 @@
+package sockets;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class TCPServer {
+
+	public static void main(String[] args) {
+		while(true){
+			try {
+				ServerSocket server = new ServerSocket();
+				Socket client = server.accept();
+				//communicate with the client
+				DataInputStream in = new DataInputStream(client.getInputStream());
+				DataOutputStream out = new DataOutputStream(client.getOutputStream());
+				out.writeUTF("Hello Client World!");
+				String results = in.readUTF();
+				System.out.println(results);
+				
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+			
+		}
+			
+		
+	}
+
+}

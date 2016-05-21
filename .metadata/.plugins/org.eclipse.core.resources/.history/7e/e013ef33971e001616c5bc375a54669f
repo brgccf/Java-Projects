@@ -1,0 +1,16 @@
+package sockets;
+
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
+import java.net.DatagramSocket;
+import java.net.Socket;
+import java.util.Scanner;
+public class TCPClient {
+	private Socket clientSocket = null; //socket cliente
+	private ObjectOutputStream outputStream = null; //tcp de saida de cliente
+	private boolean isConnected = false;
+
+	public static void main(String[] args) throws Exception{
+		
+	}
+}
