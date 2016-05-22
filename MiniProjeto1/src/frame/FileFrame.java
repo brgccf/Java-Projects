@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -22,9 +23,10 @@ import java.awt.Button;
 public class FileFrame extends JFrame {
 	private TCPServer server;
 	private TCPClient client;
-	private Thread thServer;
-	private Thread thClient;
+	private Thread thServer = null;
+	private Thread thClient = null;
 	private String path = null;
+	private String name = null;
 	private JPanel contentPane;
 
 	/**
@@ -60,7 +62,7 @@ public class FileFrame extends JFrame {
 		
 		JLabel lblRTT = new JLabel("Waiting for File Choose");
 		lblRTT.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRTT.setFont(new Font("Source Sans Pro Semibold", Font.BOLD, 13));
+		lblRTT.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		lblRTT.setBounds(48, 131, 323, 44);
 		contentPane.add(lblRTT);
 		
@@ -71,27 +73,31 @@ public class FileFrame extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				JFileChooser choose = new JFileChooser();
 				choose.showOpenDialog(contentPane);
-				//String path = choose.getSelectedFile().getAbsolutePath();
-				path = choose.getSelectedFile().getAbsolutePath();
-				server = new TCPServer(path, lblRTT);
-				lblRTT.setText("Way choosen: " + path);
+				path = choose.getSelectedFile().getAbsolutePath(); //caminho do arquivo a ser baixado
+				name = choose.getSelectedFile().getName(); //nome do arquivo a ser transferido
+				System.out.println("name = " + name);
+				server = new TCPServer(path, lblRTT, progressBar);
+				File myFile = server.getFile();
+				long totalLength = myFile.length();
+				lblRTT.setText("File Length = " + totalLength + " bytes");
 			}
 		});
 		btnSearch.setBounds(157, 55, 99, 37);
 		contentPane.add(btnSearch);
 		
-		
+		//C:\Users\brgccf\Desktop\teste
 		JButton btnStart = new JButton("Start");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(path == null) JOptionPane.showMessageDialog(null, "Escolha um caminho antes de iniciar!");
+				if(path == null) JOptionPane.showMessageDialog(null, "Escolha um arquivo de transferencia antes de iniciar!");
 				else
 				{
 					JOptionPane.showMessageDialog(null, "escolha o caminho para salvar seu arquivo");
 					JFileChooser chooseClient = new JFileChooser();
-					chooseClient.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+					chooseClient.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 					chooseClient.showOpenDialog(contentPane);
-					path = chooseClient.getCurrentDirectory().getAbsolutePath();
+					path = chooseClient.getSelectedFile().getAbsolutePath();
+					path += '\\' + name;
 					System.out.println("Path = " + path);
 					client = new TCPClient(path);
 					thClient = new Thread(client);
@@ -108,7 +114,13 @@ public class FileFrame extends JFrame {
 		JButton btnStop = new JButton("Stop");
 		btnStop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				if(thServer != null && thClient != null)
+				{
+					client.finish();
+					server.finish();
+					JOptionPane.showMessageDialog(null, "Transferencia encerrada.");
+				}
+				else JOptionPane.showMessageDialog(null, "Não há transferência em execução!");
 			}
 		});
 		btnStop.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
