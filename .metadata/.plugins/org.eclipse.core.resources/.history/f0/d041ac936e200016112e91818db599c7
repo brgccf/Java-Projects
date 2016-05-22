@@ -84,8 +84,8 @@ public class TCPClient implements Runnable{
 					RTT = System.nanoTime() - RTT;
 					this.label.setText("RTT = " + RTT/1000 + " picosegundos");
 					count += len;
-					int value = (int)((count*100)/(totalLength));
-					this.progress.setValue(value);
+					
+					this.progress.setValue();
 					
 				}
 				

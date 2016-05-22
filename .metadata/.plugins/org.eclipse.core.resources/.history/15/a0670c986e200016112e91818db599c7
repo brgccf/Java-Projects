@@ -85,7 +85,7 @@ public class TCPClient implements Runnable{
 					this.label.setText("RTT = " + RTT/1000 + " picosegundos");
 					count += len;
 					int value = (int)((count*100)/(totalLength));
-					this.progress.setValue(value);
+					if(value > 0) this.progress.setValue(value);
 					
 				}
 				

@@ -18,12 +18,12 @@ public class TCPClient implements Runnable{
 	private OutputStream fileOutputStream = null;
 	private boolean isConnected = false;
 	private boolean temp = true;
-	private long totalLength;
+	private int totalLength;
 	private JLabel label;
 	private JProgressBar progress;
 	private File dstFile = null; //arquivo que sera criado
 	private String destinationPath;
-	public TCPClient(String dest, JLabel label, JProgressBar progress, long total){
+	public TCPClient(String dest, JLabel label, JProgressBar progress, int total){
 		this.label = label;
 		this.destinationPath = dest;
 		this.progress = progress;
@@ -42,7 +42,7 @@ public class TCPClient implements Runnable{
 		{
 			try
 			{
-				clientSocket = new Socket("localhost", 5050); //conectando com host na porta do servidor aberta
+				clientSocket = new Socket("192.168.1.107", 5050); //conectando com host na porta do servidor aberta
 				isConnected = true;
 				this.label.setText("Connected.");
 				inputStream = clientSocket.getInputStream();
@@ -53,9 +53,9 @@ public class TCPClient implements Runnable{
 			}
 		}
 		this.progress.setMinimum(0);
-		this.progress.setMaximum(100);
+		this.progress.setMaximum(totalLength);
 		this.progress.setValue(0);
-		long count = 0;
+		int count = 0;
 		while(temp)
 		{
 			try
@@ -63,7 +63,7 @@ public class TCPClient implements Runnable{
 				//recebendo resposta do servidor:
 				int len;
 				byte[] readPacket = new byte[1024]; //criando pacote
-				//calculo do RTT: começa antes de escrever e verifica logo apos terminar
+				//calculo do RTT: usaremos o LastModified do arquivo
 				
 				//lendo o nome do arquivo
 				DataInputStream clientData = new DataInputStream(inputStream);
@@ -82,10 +82,9 @@ public class TCPClient implements Runnable{
 					long RTT = System.nanoTime();
 					fileOutputStream.write(readPacket, 0, len); //escrevendo no diretorio destino
 					RTT = System.nanoTime() - RTT;
-					this.label.setText("RTT = " + RTT/1000 + " picosegundos");
+					this.label.setText("RTT = " + RTT/1000 + " microsegundos");
 					count += len;
-					int value = (int)((count*100)/(totalLength));
-					this.progress.setValue(value);
+					this.progress.setValue(count);
 					
 				}
 				
