@@ -23,10 +23,11 @@ public class TCPClient implements Runnable{
 	private JProgressBar progress;
 	private File dstFile = null; //arquivo que sera criado
 	private String destinationPath;
-	public TCPClient(String dest, JLabel label, JProgressBar progress){
+	public TCPClient(String dest, JLabel label, JProgressBar progress, long total){
 		this.label = label;
 		this.destinationPath = dest;
 		this.progress = progress;
+		this.totalLength = total;
 	}
 	
 	public void finish()
@@ -41,7 +42,7 @@ public class TCPClient implements Runnable{
 		{
 			try
 			{
-				clientSocket = new Socket("localhost", 5050); //conectando com host na porta do servidor aberta
+				clientSocket = new Socket("192.168.1.107", 5050); //conectando com host na porta do servidor aberta
 				isConnected = true;
 				this.label.setText("Connected.");
 				inputStream = clientSocket.getInputStream();
@@ -70,7 +71,7 @@ public class TCPClient implements Runnable{
 				destinationPath += fileName; //agregando o nome do arquivo ao destino
 				dstFile = new File(destinationPath);
 				System.out.println("DESTINO: " + destinationPath);
-				this.totalLength = clientData.readLong();
+				
 				//stream de saida: para path de destino
 				fileOutputStream = new FileOutputStream(dstFile);
 				if(!dstFile.exists()) throw new Exception();

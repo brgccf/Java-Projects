@@ -41,7 +41,7 @@ public class TCPClient implements Runnable{
 		{
 			try
 			{
-				clientSocket = new Socket("localhost", 5050); //conectando com host na porta do servidor aberta
+				clientSocket = new Socket("192.168.1.107", 5050); //conectando com host na porta do servidor aberta
 				isConnected = true;
 				this.label.setText("Connected.");
 				inputStream = clientSocket.getInputStream();

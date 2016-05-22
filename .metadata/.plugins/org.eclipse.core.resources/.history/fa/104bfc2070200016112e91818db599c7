@@ -81,7 +81,6 @@ public class TCPServer implements Runnable {
 				DataOutputStream dos = new DataOutputStream(outToClient);
 				//enviando nome do arquivo para cliente
 				dos.writeUTF(myFile.getName());
-				dos.writeLong(myFile.length());
 				while((len = in.read(arrayBytesFile)) > 0)
 				{
 					outToClient.write(arrayBytesFile, 0, len);
