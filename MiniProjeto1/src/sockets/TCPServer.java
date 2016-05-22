@@ -25,14 +25,14 @@ public class TCPServer implements Runnable {
 	private boolean temp = true;
 	private File myFile = null;
 	private JLabel label;
-	private JProgressBar progressBar;
-	public TCPServer(String source, JLabel label, JProgressBar progress)
+	//private JProgressBar progressBar;
+	public TCPServer(String source, JLabel label)
 	{
 		//this.sourceFilePath = source;
 		//this.destinationPath = dest;
 		this.label = label;
 		this.myFile = new File(source);
-		this.progressBar = progress;
+		//this.progressBar = progress;
 	}
 	
 	public void finish()
@@ -64,18 +64,16 @@ public class TCPServer implements Runnable {
 		catch (IOException e) {
 			this.label.setText("Erro no servidor: " + e.getMessage());;
 		}
-		this.progressBar.setMinimum(0);
-		this.progressBar.setMaximum(100);
-		this.progressBar.setValue(0);
+		//this.progressBar.setMinimum(0);
+		//this.progressBar.setMaximum(100);
+		//this.progressBar.setValue(0);
+		this.label.setText("Downloading File...");
 		long count = 0;
 		long totLength = myFile.length();
 		while(temp)
 		{
 			try
 			{
-				
-				//File myFile = new File(sourceFilePath); //found file to send
-				//int len = (int)myFile.length(); //tamanho total do arquivo
 				int len;
 				byte[] arrayBytesFile = new byte[1024]; //array de bytes 
 				fileInputStream = new FileInputStream(myFile); //tcp para leitura de arquivo
@@ -83,17 +81,14 @@ public class TCPServer implements Runnable {
 				//stream de saida
 				outToClient = connectSocket.getOutputStream();
 				//escrevendo no socket
-				long RTT = System.nanoTime();
 				while((len = in.read(arrayBytesFile)) > 0)
 				{
 					outToClient.write(arrayBytesFile, 0, len);
 				}
 				if(len <= 0) break;
 				count += len;
-				this.progressBar.setValue((int)(count*100/totLength));
-				//falta receber confirmaçao pra calcular RTT
-				RTT = System.nanoTime() - RTT;
-				this.label.setText("RTT = " + RTT/1000 + " micro segundos"); //atualizando RTT
+				//this.progressBar.setValue((int)((count/totLength)*100));
+				
 			}
 			catch(FileNotFoundException e)
 			{
@@ -105,8 +100,10 @@ public class TCPServer implements Runnable {
 			}
 		}
 		this.label.setText("Transmission Finished.");
-		this.progressBar.setValue(100);
+		//this.progressBar.setValue(100);
 		try {
+			serverSocket.close();
+			connectSocket.close();
 			fileInputStream.close();
 			in.close();
 			outToClient.close();

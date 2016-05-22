@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import sockets.TCPClient;
 import sockets.TCPServer;
 import java.awt.Button;
+import java.awt.Color;
 
 public class FileFrame extends JFrame {
 	private TCPServer server;
@@ -27,6 +28,7 @@ public class FileFrame extends JFrame {
 	private Thread thClient = null;
 	private String path = null;
 	private String name = null;
+	private int totalLength = 0;
 	private JPanel contentPane;
 
 	/**
@@ -57,6 +59,7 @@ public class FileFrame extends JFrame {
 		contentPane.setLayout(null);
 		
 		JProgressBar progressBar = new JProgressBar();
+		progressBar.setForeground(Color.GREEN);
 		progressBar.setBounds(48, 186, 323, 37);
 		contentPane.add(progressBar);
 		
@@ -65,7 +68,12 @@ public class FileFrame extends JFrame {
 		lblRTT.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		lblRTT.setBounds(48, 131, 323, 44);
 		contentPane.add(lblRTT);
-		
+
+		JLabel lblinfo = new JLabel("Information");
+		lblinfo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblinfo.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
+		lblinfo.setBounds(48, 76, 323, 44);
+		contentPane.add(lblinfo);
 		
 		JButton btnSearch = new JButton("Search");
 		btnSearch.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
@@ -76,39 +84,37 @@ public class FileFrame extends JFrame {
 				path = choose.getSelectedFile().getAbsolutePath(); //caminho do arquivo a ser baixado
 				name = choose.getSelectedFile().getName(); //nome do arquivo a ser transferido
 				System.out.println("name = " + name);
-				server = new TCPServer(path, lblRTT, progressBar);
+				server = new TCPServer(path, lblinfo);
 				File myFile = server.getFile();
-				long totalLength = myFile.length();
+				totalLength = (int)myFile.length();
 				lblRTT.setText("File Length = " + totalLength + " bytes");
+				thServer = new Thread(server);
+				thServer.start();
 			}
 		});
-		btnSearch.setBounds(157, 55, 99, 37);
+		btnSearch.setBounds(157, 27, 99, 37);
 		contentPane.add(btnSearch);
 		
 		//C:\Users\brgccf\Desktop\teste
 		JButton btnStart = new JButton("Start");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(path == null) JOptionPane.showMessageDialog(null, "Escolha um arquivo de transferencia antes de iniciar!");
-				else
-				{
-					JOptionPane.showMessageDialog(null, "escolha o caminho para salvar seu arquivo");
-					JFileChooser chooseClient = new JFileChooser();
-					chooseClient.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-					chooseClient.showOpenDialog(contentPane);
-					path = chooseClient.getSelectedFile().getAbsolutePath();
-					path += '\\' + name;
-					System.out.println("Path = " + path);
-					client = new TCPClient(path);
-					thClient = new Thread(client);
-					thServer = new Thread(server);
-					thServer.start();
-					thClient.start();
-				}
+				JOptionPane.showMessageDialog(null, "escolha o caminho para salvar seu arquivo");
+				JFileChooser chooseClient = new JFileChooser();
+				chooseClient.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				chooseClient.showOpenDialog(contentPane);
+				path = chooseClient.getSelectedFile().getAbsolutePath();
+				path += '\\' + name;
+				System.out.println("Path = " + path);
+				client = new TCPClient(path, lblRTT, progressBar, totalLength);
+				thClient = new Thread(client);
+				thClient.start();	
+				
 			}
+				
 		});
 		btnStart.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
-		btnStart.setBounds(48, 55, 99, 37);
+		btnStart.setBounds(48, 27, 99, 37);
 		contentPane.add(btnStart);
 		
 		JButton btnStop = new JButton("Stop");
@@ -124,7 +130,8 @@ public class FileFrame extends JFrame {
 			}
 		});
 		btnStop.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
-		btnStop.setBounds(272, 55, 99, 37);
+		btnStop.setBounds(272, 27, 99, 37);
 		contentPane.add(btnStop);
+		
 	}
 }
