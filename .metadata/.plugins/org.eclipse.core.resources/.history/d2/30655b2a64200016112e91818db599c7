@@ -82,7 +82,7 @@ public class TCPClient implements Runnable{
 					long RTT = dstFile.lastModified();
 					fileOutputStream.write(readPacket, 0, len); //escrevendo no diretorio destino
 					RTT = dstFile.lastModified() - RTT;
-					this.label.setText("RTT = " + RTT/1000 + " microsegundos");
+					this.label.setText("RTT = " + RTT/1000000 + " microsegundos");
 					count += len;
 					this.progress.setValue(count);
 					

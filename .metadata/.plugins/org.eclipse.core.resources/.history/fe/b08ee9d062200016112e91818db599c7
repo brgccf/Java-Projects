@@ -27,6 +27,7 @@ public class FileFrame extends JFrame {
 	private Thread thServer = null;
 	private Thread thClient = null;
 	private String path = null;
+	private String name = null;
 	private int totalLength = 0;
 	private JPanel contentPane;
 

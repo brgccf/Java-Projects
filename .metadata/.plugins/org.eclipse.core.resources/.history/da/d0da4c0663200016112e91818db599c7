@@ -86,9 +86,9 @@ public class TCPServer implements Runnable {
 				{
 					outToClient.write(arrayBytesFile, 0, len);
 					count += len;
-					//this.progressBar.setValue(count);
 				}
 				if(len <= 0) break;
+				//this.progressBar.setValue((int)((count/totLength)*100));
 				
 			}
 			catch(FileNotFoundException e)

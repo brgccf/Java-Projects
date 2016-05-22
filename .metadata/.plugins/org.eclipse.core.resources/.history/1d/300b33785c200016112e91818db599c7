@@ -79,13 +79,13 @@ public class TCPClient implements Runnable{
 				
 				while((len = inputStream.read(readPacket)) > 0)
 				{
-					long RTT = dstFile.lastModified();
+					
 					fileOutputStream.write(readPacket, 0, len); //escrevendo no diretorio destino
-					RTT = dstFile.lastModified() - RTT;
-					this.label.setText("RTT = " + RTT/1000 + " microsegundos");
+					//assim que recebeu e leu o pacote, podemos calcular RTT:
+					
+					//this.label.setText("RTT = " + RTT + " ms");
 					count += len;
 					this.progress.setValue(count);
-					
 				}
 				
 				if(len <= 0) break;

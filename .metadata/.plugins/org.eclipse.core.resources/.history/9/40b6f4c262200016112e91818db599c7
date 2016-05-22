@@ -27,6 +27,7 @@ public class FileFrame extends JFrame {
 	private Thread thServer = null;
 	private Thread thClient = null;
 	private String path = null;
+	private String name = null;
 	private int totalLength = 0;
 	private JPanel contentPane;
 
@@ -81,7 +82,9 @@ public class FileFrame extends JFrame {
 				JFileChooser choose = new JFileChooser();
 				choose.showOpenDialog(contentPane);
 				path = choose.getSelectedFile().getAbsolutePath(); //caminho do arquivo a ser baixado
-				server = new TCPServer(path, lblinfo);
+				name = choose.getSelectedFile().getName(); //nome do arquivo a ser transferido
+				System.out.println("name = " + name);
+				server = new TCPServer(path, lblinfo, name);
 				File myFile = server.getFile();
 				totalLength = (int)myFile.length();
 				lblRTT.setText("File Length = " + totalLength + " bytes");

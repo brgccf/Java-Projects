@@ -64,7 +64,7 @@ public class TCPServer implements Runnable {
 			this.label.setText("Erro no servidor: " + e.getMessage());;
 		}
 		//this.progressBar.setMinimum(0);
-		//this.progressBar.setMaximum(myFile.length());
+		//this.progressBar.setMaximum(100);
 		//this.progressBar.setValue(0);
 		this.label.setText("Downloading File...");
 		long count = 0;
@@ -86,9 +86,9 @@ public class TCPServer implements Runnable {
 				{
 					outToClient.write(arrayBytesFile, 0, len);
 					count += len;
-					//this.progressBar.setValue(count);
 				}
 				if(len <= 0) break;
+				//this.progressBar.setValue((int)((count/totLength)*100));
 				
 			}
 			catch(FileNotFoundException e)
