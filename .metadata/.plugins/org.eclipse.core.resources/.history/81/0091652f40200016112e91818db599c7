@@ -37,11 +37,6 @@ public class TCPServer implements Runnable {
 		//this.progressBar = progress;
 	}
 	
-	public String getFileName()
-	{
-		return this.fileName;
-	}
-	
 	public void finish()
 	{
 		this.temp = false;

@@ -84,7 +84,7 @@ public class FileFrame extends JFrame {
 				path = choose.getSelectedFile().getAbsolutePath(); //caminho do arquivo a ser baixado
 				name = choose.getSelectedFile().getName(); //nome do arquivo a ser transferido
 				System.out.println("name = " + name);
-				server = new TCPServer(path, lblinfo, name);
+				server = new TCPServer(path, lblinfo);
 				File myFile = server.getFile();
 				totalLength = (int)myFile.length();
 				lblRTT.setText("File Length = " + totalLength + " bytes");
@@ -104,12 +104,11 @@ public class FileFrame extends JFrame {
 				chooseClient.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 				chooseClient.showOpenDialog(contentPane);
 				path = chooseClient.getSelectedFile().getAbsolutePath();
-				name = server.getFileName();
 				path += '\\' + name;
 				System.out.println("Path = " + path);
-//				client = new TCPClient(path, lblRTT, progressBar, totalLength);
-//				thClient = new Thread(client);
-//				thClient.start();	
+				client = new TCPClient(path, lblRTT, progressBar, totalLength);
+				thClient = new Thread(client);
+				thClient.start();	
 				
 			}
 				

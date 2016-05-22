@@ -25,21 +25,14 @@ public class TCPServer implements Runnable {
 	private boolean temp = true;
 	private File myFile = null;
 	private JLabel label;
-	private String fileName;
 	//private JProgressBar progressBar;
-	public TCPServer(String source, JLabel label, String name)
+	public TCPServer(String source, JLabel label)
 	{
 		//this.sourceFilePath = source;
 		//this.destinationPath = dest;
 		this.label = label;
 		this.myFile = new File(source);
-		this.fileName = name;
 		//this.progressBar = progress;
-	}
-	
-	public String getFileName()
-	{
-		return this.fileName;
 	}
 	
 	public void finish()
