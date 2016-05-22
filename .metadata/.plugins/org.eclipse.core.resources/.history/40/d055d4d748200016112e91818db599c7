@@ -2,7 +2,6 @@ package sockets;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -89,9 +88,6 @@ public class TCPServer implements Runnable {
 				//stream de saida
 				outToClient = connectSocket.getOutputStream();
 				//escrevendo no socket
-				DataOutputStream dos = new DataOutputStream(outToClient);
-				//enviando nome do arquivo
-				dos.writeUTF(myFile.getName());
 				while((len = in.read(arrayBytesFile)) > 0)
 				{
 					outToClient.write(arrayBytesFile, 0, len);

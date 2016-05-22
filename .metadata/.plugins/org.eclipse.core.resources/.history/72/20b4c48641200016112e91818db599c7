@@ -104,11 +104,12 @@ public class FileFrame extends JFrame {
 				chooseClient.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 				chooseClient.showOpenDialog(contentPane);
 				path = chooseClient.getSelectedFile().getAbsolutePath();
-				path += '\\';
+				name = server.getFileName();
+				path += '\\' + name;
 				System.out.println("Path = " + path);
-				client = new TCPClient(path, lblRTT, progressBar, totalLength);
-				thClient = new Thread(client);
-				thClient.start();	
+//				client = new TCPClient(path, lblRTT, progressBar, totalLength);
+//				thClient = new Thread(client);
+//				thClient.start();	
 				
 			}
 				
