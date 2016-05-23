@@ -59,7 +59,7 @@ public class TCPClient implements Runnable{
 		this.progress.setMaximum(100);
 		this.progress.setValue(0);
 		long count = 0;
-		this.label.setText("Downloading File. Please Wait...");
+		this.info.setText("Downloading File. Please Wait...");
 		while(temp)
 		{
 			try
@@ -90,7 +90,7 @@ public class TCPClient implements Runnable{
 					count += len;
 					int value = (int)((count*100)/(totalLength));
 					this.progress.setValue(value); //atualizando barra de progresso
-					this.label.setText(value + "%");
+					
 				}
 				
 				if(len <= 0) break;

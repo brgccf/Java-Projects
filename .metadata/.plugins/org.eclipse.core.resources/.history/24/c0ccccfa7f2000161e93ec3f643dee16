@@ -90,7 +90,7 @@ public class TCPClient implements Runnable{
 					count += len;
 					int value = (int)((count*100)/(totalLength));
 					this.progress.setValue(value); //atualizando barra de progresso
-					this.label.setText(value + "%");
+					this.label.setText(value + '%');
 				}
 				
 				if(len <= 0) break;
