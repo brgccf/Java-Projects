@@ -81,7 +81,7 @@ public class TCPClient implements Runnable{
 					long RTT = System.nanoTime();
 					fileOutputStream.write(readPacket, 0, len); //escrevendo no diretorio destino
 					RTT = System.nanoTime() - RTT;
-					this.label.setText("RTT = " + RTT + " microsegundos");
+					this.label.setText("RTT = " + RTT/1000 + " picosegundos");
 					count += len;
 					int value = (int)((count*100)/(totalLength));
 					this.progress.setValue(value);
@@ -92,8 +92,8 @@ public class TCPClient implements Runnable{
 			}
 			catch(Exception e)
 			{
-				if(e.getMessage() == null)this.label.setText("Diretorio destino inexistente!");
-				else this.label.setText("Erro em operacao de cliente: " + e.getMessage());
+				if(e.getMessage() == null)System.out.println("Diretorio destino inexistente!");
+				else System.out.println("Erro em operacao de cliente: " + e.getMessage());
 				
 			}
 		}

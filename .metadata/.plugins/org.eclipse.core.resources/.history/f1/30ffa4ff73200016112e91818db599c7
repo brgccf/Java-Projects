@@ -92,7 +92,7 @@ public class TCPClient implements Runnable{
 			}
 			catch(Exception e)
 			{
-				if(e.getMessage() == null)this.label.setText("Diretorio destino inexistente!");
+				if(e.getMessage() == null)System.out.println("Diretorio destino inexistente!");
 				else this.label.setText("Erro em operacao de cliente: " + e.getMessage());
 				
 			}

@@ -95,11 +95,11 @@ public class TCPServer implements Runnable {
 			}
 			catch(FileNotFoundException e)
 			{
-				this.label.setText("Arquivo nao encontrado! --> " + e.getMessage());
+				System.out.println("Arquivo nao encontrado! --> " + e.getMessage());
 			}
 			catch(Exception e)
 			{
-				this.label.setText("erro de servidor: " + e.getMessage());
+				System.out.println("erro de servidor: " + e.getMessage());
 			}
 		}
 		this.label.setText("Transmission Finished.");

@@ -81,7 +81,7 @@ public class FileFrame extends JFrame {
 				JFileChooser choose = new JFileChooser();
 				choose.showOpenDialog(contentPane);
 				path = choose.getSelectedFile().getAbsolutePath(); //caminho do arquivo a ser baixado
-				server = new TCPServer(path, lblinfo, progressBar);
+				server = new TCPServer(path, lblinfo);
 				File myFile = server.getFile();
 				totalLength = (int)myFile.length();
 				lblRTT.setText("File Length = " + totalLength + " bytes");
@@ -117,10 +117,10 @@ public class FileFrame extends JFrame {
 		JButton btnStop = new JButton("Stop");
 		btnStop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(thServer != null || thClient != null)
+				if(thServer != null && thClient != null)
 				{
-					if(thClient.isAlive())client.finish();
-					if(thServer.isAlive())server.finish();
+					client.finish();
+					server.finish();
 					JOptionPane.showMessageDialog(null, "Transferencia encerrada.");
 				}
 				else JOptionPane.showMessageDialog(null, "Não há transferência em execução!");

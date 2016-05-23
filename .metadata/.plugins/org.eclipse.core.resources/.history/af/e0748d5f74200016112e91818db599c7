@@ -24,12 +24,12 @@ public class TCPServer implements Runnable {
 	private boolean temp = true;
 	private File myFile = null;
 	private JLabel label;
-	private JProgressBar progressBar;
-	public TCPServer(String source, JLabel label, JProgressBar progressBar)
+	//private JProgressBar progressBar;
+	public TCPServer(String source, JLabel label)
 	{
 		this.label = label;
 		this.myFile = new File(source);
-		this.progressBar = progressBar;
+		//this.progressBar = progress;
 	}
 	
 	public void finish()
@@ -62,12 +62,11 @@ public class TCPServer implements Runnable {
 		catch (IOException e) {
 			this.label.setText("Erro no servidor: " + e.getMessage());;
 		}
-		this.progressBar.setMinimum(0);
-		this.progressBar.setMaximum(100);
-		this.progressBar.setValue(0);
+		//this.progressBar.setMinimum(0);
+		//this.progressBar.setMaximum(myFile.length());
+		//this.progressBar.setValue(0);
 		this.label.setText("Sending File...");
 		long count = 0;
-		long total = myFile.length();
 		while(temp)
 		{
 			try
@@ -87,19 +86,18 @@ public class TCPServer implements Runnable {
 				{
 					outToClient.write(arrayBytesFile, 0, len);
 					count += len;
-					int value = (int)((count*100)/(total));
-					this.progressBar.setValue(value);
+					//this.progressBar.setValue(count);
 				}
 				if(len <= 0) break;
 				
 			}
 			catch(FileNotFoundException e)
 			{
-				this.label.setText("Arquivo nao encontrado! --> " + e.getMessage());
+				System.out.println("Arquivo nao encontrado! --> " + e.getMessage());
 			}
 			catch(Exception e)
 			{
-				this.label.setText("erro de servidor: " + e.getMessage());
+				System.out.println("erro de servidor: " + e.getMessage());
 			}
 		}
 		this.label.setText("Transmission Finished.");
