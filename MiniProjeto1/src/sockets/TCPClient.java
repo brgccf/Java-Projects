@@ -1,7 +1,6 @@
 package sockets;
 
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -25,12 +24,14 @@ public class TCPClient implements Runnable{
 	private String destinationPath;
 	private JLabel info;
 	private String ip;
-	public TCPClient(String dest, JLabel label, JProgressBar progress, JLabel info, String ip){
+	private int serverPort;
+	public TCPClient(String dest, JLabel label, JProgressBar progress, JLabel info, String ip, int serverPort){
 		this.label = label;
 		this.destinationPath = dest;
 		this.progress = progress;
 		this.info = info;
 		this.ip = ip;
+		this.serverPort = serverPort;
 	}
 	
 	public void finish()
@@ -45,7 +46,7 @@ public class TCPClient implements Runnable{
 		{
 			try
 			{
-				clientSocket = new Socket(this.ip, 5050); //conectando com host na porta do servidor aberta
+				clientSocket = new Socket(this.ip, serverPort); //conectando com host na porta do servidor aberta
 				isConnected = true;
 				this.label.setText("Connected.");
 				inputStream = clientSocket.getInputStream();
@@ -60,6 +61,7 @@ public class TCPClient implements Runnable{
 		this.progress.setValue(0);
 		long count = 0;
 		this.label.setText("Downloading File. Please Wait...");
+		//variaveis para calculo do tempo estimado
 		while(temp)
 		{
 			try
@@ -75,22 +77,26 @@ public class TCPClient implements Runnable{
 				destinationPath += fileName; //agregando o nome do arquivo ao destino
 				dstFile = new File(destinationPath);
 				System.out.println("DESTINO: " + destinationPath);
-				this.totalLength = clientData.readLong();
+				this.totalLength = clientData.readLong(); //tamanho total do arquivo em bytes
 				//stream de saida: para path de destino
 				fileOutputStream = new FileOutputStream(dstFile);
 				if(!dstFile.exists()) throw new Exception();
 				dstFile.setWritable(true); //permitindo escrita
-				
-				while((len = inputStream.read(readPacket)) > 0)
+				/*
+				 * para o calculo do tempo estimado, devemos multiplicar a quantidade
+				 * de bytes que ainda faltam ser transmitidas pelo RTT em segundos
+				 * faremos isso no servidor
+				 */
+				while((len = inputStream.read(readPacket)) > 0 && temp)
 				{
 					long RTT = System.nanoTime();
 					fileOutputStream.write(readPacket, 0, len); //escrevendo no diretorio destino
 					RTT = System.nanoTime() - RTT;
-					this.info.setText("RTT = " + RTT + " nanosegundos");
+					this.info.setText("RTT = " + RTT/1000 + " microsegundos");
 					count += len;
 					int value = (int)((count*100)/(totalLength));
 					this.progress.setValue(value); //atualizando barra de progresso
-					this.label.setText(value + "%");
+					this.label.setText(value + "% "); /*+ seconds/3600 + "h" + seconds/60 + "min" + (seconds%3600) + "sec remaining.");*/
 				}
 				
 				if(len <= 0) break;
@@ -99,6 +105,7 @@ public class TCPClient implements Runnable{
 			{
 				if(e.getMessage() == null)this.info.setText("Diretorio destino inexistente!");
 				else this.info.setText("Erro em operacao de cliente: " + e.getMessage());
+				System.out.println("Erro em cliente: " + e.getMessage());
 				
 			}
 		}

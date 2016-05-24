@@ -2,7 +2,6 @@ package frame;
 
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.JobAttributes;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -19,16 +18,17 @@ import javax.swing.border.EmptyBorder;
 
 import sockets.TCPClient;
 import sockets.TCPServer;
-import java.awt.Button;
 import java.awt.Color;
 
+@SuppressWarnings("serial")
 public class FileFrame extends JFrame {
 	private TCPServer server;
 	private TCPClient client;
 	private Thread thServer = null;
 	private Thread thClient = null;
 	private String path = null;
-	private int totalLength = 0;
+	private long totalLength = 0;
+	private int serverPort;
 	private JPanel contentPane;
 
 	/**
@@ -60,41 +60,48 @@ public class FileFrame extends JFrame {
 		
 		JProgressBar progressBar = new JProgressBar();
 		progressBar.setForeground(Color.GREEN);
-		progressBar.setBounds(48, 186, 323, 37);
+		progressBar.setBounds(36, 186, 353, 37);
 		contentPane.add(progressBar);
 		
 		JLabel lblRTT = new JLabel("Waiting for File Choose");
 		lblRTT.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRTT.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
-		lblRTT.setBounds(48, 131, 323, 44);
+		lblRTT.setBounds(36, 125, 353, 50);
 		contentPane.add(lblRTT);
 
 		JLabel lblinfo = new JLabel("Information");
 		lblinfo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblinfo.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
-		lblinfo.setBounds(48, 76, 323, 44);
+		lblinfo.setBounds(36, 59, 353, 57);
 		contentPane.add(lblinfo);
 		
-		JButton btnSearch = new JButton("Search");
+		JButton btnSearch = new JButton("Send File");
 		btnSearch.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JFileChooser choose = new JFileChooser();
 				choose.showOpenDialog(contentPane);
 				path = choose.getSelectedFile().getAbsolutePath(); //caminho do arquivo a ser baixado
-				server = new TCPServer(path, lblinfo, progressBar);
+				try
+				{
+					serverPort = Integer.parseInt(JOptionPane.showInputDialog("Digite o número da porta do servidor:"));
+				}
+				catch(NumberFormatException e){
+					JOptionPane.showMessageDialog(null, "Entrada inválida! Tente novamente.");
+				}
+				server = new TCPServer(path, lblinfo, lblRTT, progressBar, serverPort);
 				File myFile = server.getFile();
-				totalLength = (int)myFile.length();
+				totalLength = myFile.length();
 				lblRTT.setText("File Length = " + totalLength + " bytes");
 				thServer = new Thread(server);
 				thServer.start();
 			}
 		});
-		btnSearch.setBounds(157, 27, 99, 37);
+		btnSearch.setBounds(181, 11, 99, 37);
 		contentPane.add(btnSearch);
 		
 		//C:\Users\brgccf\Desktop\teste
-		JButton btnStart = new JButton("Start");
+		JButton btnStart = new JButton("Receive File");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showMessageDialog(null, "escolha o caminho para salvar seu arquivo");
@@ -104,8 +111,9 @@ public class FileFrame extends JFrame {
 				path = chooseClient.getSelectedFile().getAbsolutePath();
 				path += '\\';
 				System.out.println("Path = " + path);
+				int port = Integer.parseInt(JOptionPane.showInputDialog("Digite o número da porta do servidor:"));
 				String ip = JOptionPane.showInputDialog(null, "Digite o IP do servidor com o arquivo a ser baixado:");
-				client = new TCPClient(path, lblRTT, progressBar, lblinfo, ip);
+				client = new TCPClient(path, lblRTT, progressBar, lblinfo, ip, port);
 				thClient = new Thread(client);
 				thClient.start();	
 				
@@ -113,7 +121,7 @@ public class FileFrame extends JFrame {
 				
 		});
 		btnStart.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
-		btnStart.setBounds(48, 27, 99, 37);
+		btnStart.setBounds(32, 11, 139, 37);
 		contentPane.add(btnStart);
 		
 		JButton btnStop = new JButton("Stop");
@@ -129,7 +137,7 @@ public class FileFrame extends JFrame {
 			}
 		});
 		btnStop.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
-		btnStop.setBounds(272, 27, 99, 37);
+		btnStop.setBounds(290, 11, 99, 37);
 		contentPane.add(btnStop);
 		
 	}
