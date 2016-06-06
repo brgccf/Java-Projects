@@ -1,0 +1,20 @@
+package list;
+
+public class Lista {
+	
+	private int key;
+	private Lista next;
+	
+	public Lista(int key)
+	{
+		this.key = key;
+		this.next = null;
+	}
+	
+	public void insert(int key)
+	{
+		Lista novo = new Lista(key);
+		
+	}
+
+}

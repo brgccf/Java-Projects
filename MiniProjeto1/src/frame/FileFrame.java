@@ -63,7 +63,7 @@ public class FileFrame extends JFrame {
 		progressBar.setBounds(36, 186, 353, 37);
 		contentPane.add(progressBar);
 		
-		JLabel lblRTT = new JLabel("Waiting for File Choose");
+		JLabel lblRTT = new JLabel("Choose an Option to begin");
 		lblRTT.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRTT.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		lblRTT.setBounds(36, 125, 353, 50);
@@ -139,6 +139,8 @@ public class FileFrame extends JFrame {
 		btnStop.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
 		btnStop.setBounds(290, 11, 99, 37);
 		contentPane.add(btnStop);
+		
+		
 		
 	}
 }

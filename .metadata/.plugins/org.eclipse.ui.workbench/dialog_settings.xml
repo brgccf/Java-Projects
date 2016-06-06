@@ -45,6 +45,7 @@
 		<item value="false" key="WizardFileSystemResourceImportPage1.STORE_CREATE_CONTAINER_STRUCTURE_ID"/>
 		<item value="false" key="WizardFileSystemResourceImportPage1.STORE_OVERWRITE_EXISTING_RESOURCES_ID"/>
 		<list key="WizardFileSystemResourceImportPage1.STORE_SOURCE_NAMES_ID">
+			<item value="C:\Users\brgccf\Desktop\Java-Projects\Eclipse Projects\Imprementando lista"/>
 			<item value="C:\Users\brgccf\Desktop\src"/>
 			<item value="C:\Users\PC\Desktop\Java-Projects\1aulaPratica"/>
 			<item value="C:\Users\PC\Desktop\Java-Projects\Pratica2"/>

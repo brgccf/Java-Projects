@@ -1,0 +1,14 @@
+package list;
+
+public class Lista {
+	
+	private int key;
+	private Lista next;
+	
+	public Lista(int key, Lista next)
+	{
+		this.key = key;
+		this.next = next;
+	}
+
+}

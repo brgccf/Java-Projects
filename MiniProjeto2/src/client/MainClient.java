@@ -1,0 +1,51 @@
+package client;
+
+import java.net.Socket;
+
+import streams.Reader;
+import streams.Writer;
+
+public class MainClient {
+
+	private static String host;
+	private static int port;
+	
+	public MainClient(String host, int port)
+	{
+		this.host = host;
+		this.port = port;
+	}
+	
+	public static String getHost() {
+		return host;
+	}
+
+	public static void setHost(String host) {
+		MainClient.host = host;
+	}
+
+	public static int getPort() {
+		return port;
+	}
+
+	public static void setPort(int port) {
+		MainClient.port = port;
+	}
+
+	public static void main(String[] args) {
+		try{
+			Socket client = new Socket(host, port);
+			Reader read = new Reader(client);
+			Writer write = new Writer(client);
+			Thread readth = new Thread(read);
+			Thread send = new Thread(write);
+			readth.start();
+			send.start();
+		}
+		catch(Exception e){
+			System.out.println("Erro main cliente: " + e.getMessage());
+		}
+
+	}
+
+}
