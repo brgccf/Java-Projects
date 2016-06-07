@@ -3,14 +3,16 @@ package streams;
 import java.io.DataOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
+
+import javax.swing.JTextField;
 //esta classe vai ler a entrada do teclado para enviar para o socket
 public class Writer implements Runnable{
-	
+	private JTextField textField;
 	private Socket server;
-	
-	public Writer(Socket server)
+	public Writer(Socket server, JTextField textField)
 	{
 		this.server = server;
+		this.textField = textField;
 	}
 	
 	public void run() {
@@ -18,15 +20,14 @@ public class Writer implements Runnable{
 		try{
 			socketOut = new DataOutputStream(this.server.getOutputStream());
 			String message = "";
-			Scanner scan = new Scanner (System.in);
 			while(true)
 			{
 				if(Thread.currentThread().isInterrupted()) break; //se estiver interrompida sai do laço
 				else
 				{
-					message = scan.nextLine();
+					message = this.textField.getText();
 					
-					if(message.equals("exit")){
+					if(message.equalsIgnoreCase("exit")){
 						socketOut.writeBytes(message+'\n'); //envia o comando de saida
 						socketOut.flush(); //força todos os bytes a serem enviados na stream
 						this.server.close(); //fecha o servidor
@@ -38,7 +39,6 @@ public class Writer implements Runnable{
 					}
 				}
 			}
-			scan.close();
 		}
 		catch(Exception e)
 		{

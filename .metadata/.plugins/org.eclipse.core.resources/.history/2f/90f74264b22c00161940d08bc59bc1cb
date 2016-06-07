@@ -1,0 +1,79 @@
+package frame;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
+import javax.swing.JEditorPane;
+import java.awt.Color;
+import javax.swing.JTextPane;
+
+public class ChatGui extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField textField;
+	private JTextField textFieldIP;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ChatGui frame = new ChatGui();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public ChatGui() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 572, 316);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		textField = new JTextField();
+		textField.setBounds(10, 60, 266, 58);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		JPanel msgPanel = new JPanel();
+		msgPanel.setBackground(Color.WHITE);
+		msgPanel.setBounds(10, 148, 536, 118);
+		contentPane.add(msgPanel);
+		
+		JPanel infoTxtFld = new JPanel();
+		infoTxtFld.setBounds(10, 11, 266, 38);
+		contentPane.add(infoTxtFld);
+		
+		textFieldIP = new JTextField();
+		textFieldIP.setText("0.0.0.0");
+		textFieldIP.setToolTipText("Digite o IP...");
+		textFieldIP.setBounds(422, 11, 124, 25);
+		contentPane.add(textFieldIP);
+		textFieldIP.setColumns(10);
+		
+		JPanel IPpanel = new JPanel();
+		IPpanel.setToolTipText("");
+		
+		IPpanel.setBounds(374, 11, 38, 25);
+		contentPane.add(IPpanel);
+		
+		JTextPane txtpnTeste = new JTextPane();
+		txtpnTeste.setText("teste");
+		txtpnTeste.setBounds(377, 93, 73, 20);
+		contentPane.add(txtpnTeste);
+	}
+}
