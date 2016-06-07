@@ -9,10 +9,17 @@ import javax.swing.JTextField;
 public class Writer implements Runnable{
 	private JTextField textField;
 	private Socket server;
+	private boolean clicked;
 	public Writer(Socket server, JTextField textField)
 	{
+		this.clicked = false;
 		this.server = server;
 		this.textField = textField;
+	}
+	
+	public void setClicked(boolean bool)
+	{
+		this.clicked = bool;
 	}
 	
 	public void run() {
@@ -23,6 +30,7 @@ public class Writer implements Runnable{
 			while(true)
 			{
 				if(Thread.currentThread().isInterrupted()) break; //se estiver interrompida sai do laço
+				else if(!this.clicked) continue; //repete o laço se nao houve click
 				else
 				{
 					message = this.textField.getText();
