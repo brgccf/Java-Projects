@@ -14,9 +14,10 @@ import javax.swing.JToolBar;
 public class Reader implements Runnable{
 	private Socket server;
 	private JTextArea lblMsg;
-
-	public Reader(Socket server, JTextArea lblMsg)
+	private JToolBar toolBar;
+	public Reader(Socket server, JTextArea lblMsg, JToolBar toolBar)
 	{
+		this.toolBar = toolBar;
 		this.lblMsg = lblMsg;
 		this.server = server;
 	}

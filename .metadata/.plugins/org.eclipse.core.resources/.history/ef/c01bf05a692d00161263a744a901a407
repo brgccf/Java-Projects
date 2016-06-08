@@ -25,14 +25,13 @@ public class Writer implements Runnable{
 		DataOutputStream socketOut; //criando caixa de areia para os dados de saida
 		try{
 			socketOut = new DataOutputStream(this.server.getOutputStream());
-			String message = this.textField.getText();
+			String message = "";
 			while(true)
 			{
 				if(Thread.currentThread().isInterrupted()) break; //se estiver interrompida sai do laço
 				
 				if(this.write)message = this.textField.getText();
 				else continue;
-				System.out.println("Message = " + message);
 				if(message.equalsIgnoreCase("exit")){
 					socketOut.writeBytes(message+'\n'); //envia o comando de saida
 					socketOut.flush(); //força todos os bytes a serem enviados na stream

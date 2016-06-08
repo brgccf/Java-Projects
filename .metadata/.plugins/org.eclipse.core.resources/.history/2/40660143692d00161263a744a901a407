@@ -38,7 +38,7 @@ public class MainServer implements Runnable {
 		{
 			ServerSocket socketServer = new ServerSocket(port);
 			Socket server = socketServer.accept(); //para aceitar a entrada do servidor
-			Reader read = new Reader(server, this.lblMsg);
+			Reader read = new Reader(server, this.lblMsg, toolBar);
 			write = new Writer(server, this.textField);
 			Thread readth = new Thread(read); 
 			Thread send = new Thread(write);

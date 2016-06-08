@@ -114,7 +114,7 @@ public class ChatGui extends JFrame {
 		
 		JLabel txtFieldLabel = new JLabel("Text Field");
 		txtFieldLabel.setVerticalAlignment(SwingConstants.TOP);
-		txtFieldLabel.setBounds(10, 11, 170, 96);
+		txtFieldLabel.setBounds(10, 11, 160, 96);
 		contentPane.add(txtFieldLabel);
 		
 		textField = new JTextField();
@@ -127,16 +127,14 @@ public class ChatGui extends JFrame {
 					String message = textField.getText();
 					if(thServer != null)
 					{
-						server.getWriter().setWrite(true);
+						
 					}
 					else if(thClient != null)
 					{
-						client.getWriter().setWrite(true);
+						
 					}
 					else JOptionPane.showMessageDialog(null, "No connections opened!");
 					
-					server.getWriter().setWrite(false);
-					client.getWriter().setWrite(false);
 					textField.setText("");
 				}
 			}

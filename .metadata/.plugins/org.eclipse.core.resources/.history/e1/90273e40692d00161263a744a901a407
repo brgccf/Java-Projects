@@ -47,7 +47,7 @@ public class MainClient implements Runnable {
 		try{
 			System.out.println("host = " + host + " port = " + port);
 			Socket client = new Socket(host, port);
-			Reader read = new Reader(client, this.messageLabel);
+			Reader read = new Reader(client, this.messageLabel, this.toolBar);
 			write = new Writer(client, this.textField);
 			Thread readth = new Thread(read);
 			Thread send = new Thread(write);

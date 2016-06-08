@@ -25,7 +25,7 @@ public class Writer implements Runnable{
 		DataOutputStream socketOut; //criando caixa de areia para os dados de saida
 		try{
 			socketOut = new DataOutputStream(this.server.getOutputStream());
-			String message = this.textField.getText();
+			String message = "";
 			while(true)
 			{
 				if(Thread.currentThread().isInterrupted()) break; //se estiver interrompida sai do laço
