@@ -2,6 +2,7 @@ package streams;
 
 import java.io.DataOutputStream;
 import java.net.Socket;
+import java.util.Scanner;
 
 import javax.swing.JTextField;
 //esta classe vai ler a entrada do teclado para enviar para o socket

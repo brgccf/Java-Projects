@@ -127,14 +127,15 @@ public class ChatGui extends JFrame {
 					String message = textField.getText();
 					if(thServer != null)
 					{
-						
+						server.getWriter().setClicked(true);;
 					}
 					else if(thClient != null)
 					{
-						
+						client.getWriter().setClicked(true);
 					}
 					else JOptionPane.showMessageDialog(null, "No connections opened!");
-					
+					server.getWriter().setClicked(false);
+					client.getWriter().setClicked(false);
 					textField.setText("");
 				}
 			}
@@ -150,6 +151,28 @@ public class ChatGui extends JFrame {
 
 		JTextArea textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
+		
+		
+		JButton btnSend = new JButton("Send");
+		btnSend.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String message = textField.getText();
+				if(thServer != null)
+				{
+					server.getWriter().setClicked(true);;
+				}
+				else if(thClient != null)
+				{
+					client.getWriter().setClicked(true);
+				}
+				else JOptionPane.showMessageDialog(null, "No connections opened!");
+				server.getWriter().setClicked(false);
+				client.getWriter().setClicked(false);
+				textField.setText("");
+			}
+		});
+		btnSend.setBounds(190, 31, 67, 23);
+		contentPane.add(btnSend);
 		
 		JButton btnConnect = new JButton("Connect");
 		btnConnect.addActionListener(new ActionListener() {

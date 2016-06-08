@@ -1,7 +1,6 @@
 package streams;
 
 import java.awt.Color;
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.DatagramPacket;
@@ -32,8 +31,6 @@ public class Reader implements Runnable{
 			//criando socket datagram para confirmação de recebimento
 			DatagramSocket ackSocket = new DatagramSocket(server.getPort());
 			//criando ack
-			byte[]by = new byte[8];
-			DatagramPacket ack = new DatagramPacket(by, by.length);
 			
 			while(true)
 			{

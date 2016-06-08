@@ -34,7 +34,6 @@ public class Reader implements Runnable{
 			//criando ack
 			byte[]by = new byte[8];
 			DatagramPacket ack = new DatagramPacket(by, by.length);
-			
 			while(true)
 			{
 				

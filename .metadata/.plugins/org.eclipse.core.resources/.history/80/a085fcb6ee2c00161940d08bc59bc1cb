@@ -1,13 +1,13 @@
 package streams;
 
 import java.awt.Color;
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.Socket;
 
+import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 
@@ -32,8 +32,6 @@ public class Reader implements Runnable{
 			//criando socket datagram para confirmação de recebimento
 			DatagramSocket ackSocket = new DatagramSocket(server.getPort());
 			//criando ack
-			byte[]by = new byte[8];
-			DatagramPacket ack = new DatagramPacket(by, by.length);
 			
 			while(true)
 			{
@@ -52,7 +50,7 @@ public class Reader implements Runnable{
 					this.toolBar.setBackground(Color.GREEN);
 					this.lblMsg.append(strRead + '\n');
 				}
-				else this.toolBar.setBackground(Color.RED);
+				
 				
 			}
 		}
