@@ -1,0 +1,55 @@
+package grupo4;
+
+import grupo4.*;
+import robocode.*;
+import robocode.ScannedRobotEvent;
+
+
+query "robocopca"
+  accion: Accion()
+end
+rule "Nenhum robo a vista"
+when
+	not (exists ScannedRobotEvent());
+then
+	insert (new Accion(Accion.GIRAR_RADAR_DER, 360, 1));
+end
+
+rule "Vitima detectada"
+   when
+	   $vitima: ScannedRobotEvent($anguloRelativoVictima: bearing)
+       $status: EstadoRobot()
+       eval(($status.isNotTeammate($vitima.getName())))
+   then
+      double anguloAbsoluto = Auxiliar.anguloAbsoluto($status.getHeading(), $vitima.getBearing());
+      insert(new Accion(Accion.GIRAR_TANQUE_DER, $vitima.getBearing(), 2));
+      double anguloRelativoCanon = Auxiliar.anguloRelativo($status.getHeading(), $status.getGunHeading());
+      insert(new Accion(Accion.GIRAR_CANON_DER, ($vitima.getBearing() - anguloRelativoCanon), 2));
+      double anguloRelativoRadar =  Auxiliar.anguloRelativo($status.getHeading(), $status.getRadarHeading()); 
+   	  insert(new Accion(Accion.GIRAR_RADAR_DER, ($vitima.getBearing() - anguloRelativoRadar), 2));
+      insert(new Accion(Accion.AVANZAR, 30, 2));
+end
+
+
+
+rule "Dispara"
+   when
+      $status : EstadoRobot()
+      $vitima: ScannedRobotEvent( $anguloRelativoVictima: bearing)                       
+      eval (Math.abs($anguloRelativoVictima - Auxiliar.anguloRelativo($status.getHeading(), $status.getGunHeading())) <= 2)   
+   	  eval(($status.isNotTeammate($vitima.getName())))
+   then
+      insert(new Accion(Accion.DISPARAR, Math.min(3*(1420-$vitima.getDistance())/1420, 0.10*$status.getEnergy()), 2));
+end
+
+
+rule "Evita"
+   when
+      $status : EstadoRobot()
+      $vitima: ScannedRobotEvent( $anguloRelativoVictima: bearing)                       
+      eval (Math.abs($anguloRelativoVictima - Auxiliar.anguloRelativo($status.getHeading(), $status.getGunHeading())) <= 2)   
+   	  eval(!($status.isNotTeammate($vitima.getName())))
+   then
+      insert(new Accion(Accion.GIRAR_TANQUE_DER,90, 2));
+      insert(new Accion(Accion.AVANZAR, 30, 2));
+end

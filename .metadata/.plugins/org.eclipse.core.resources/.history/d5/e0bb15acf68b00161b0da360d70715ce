@@ -1,0 +1,80 @@
+package Grupo4
+
+import Grupo4.*;
+import robocode.*;
+import robocode.ScannedRobotEvent;
+
+
+//para guardar as açoes que serao executadas
+query "consulta_acciones"
+  accion: Accion()
+end
+
+
+// 
+// REGRAS
+//
+
+
+// utilizar para armazenar informaçao de vitima encontrada
+declare vitima
+   nome: String
+   x: double
+   y: double
+   distancia: double
+end
+
+
+// Se nao encontrou robos, giro todo o radar
+rule "sem robos a vista -> girar radar em 90"
+when
+  not (exists ScannedRobotEvent())
+then
+  insert (new Accion(Accion.GIRAR_RADAR_DER, 90, 1));
+  System.out.println("giro de radar");
+end
+
+// // No necesaria ¿?
+//rule "sin vitima fijada -> giro completo del radar"
+//when
+//      not (exists vitima())
+//then
+//      insert (new Accion(Accion.GIRAR_RADAR_DER, 360, 1));
+//      System.out.println("regla 2-bis");
+//end
+
+
+// Ao chocar com um muro, sair "rebotado" pelo angulo oposto
+//   (tem prioridade 5 para evitar que outras acoes "normais" nos deixem estancados)  
+rule "choque com muro"
+when
+   HitWallEvent($anguloRelativo: bearing)
+then
+   insert(new Accion(Accion.GIRAR_TANQUE_DER, (- $anguloRelativo), 5));
+   insert(new Accion(Accion.AVANZAR, 100, 5));
+end
+
+
+// ao chocar con vitima, retroceder
+//   (tem prioridade 5 para evitar que outras acoes "normais" nos deixem estancados)  
+rule "choque com vitima"
+when
+   HitRobotEvent($nome: name, $anguloRelativo: bearing)
+   vitima(nome == $nome)
+then
+   insert(new Accion(Accion.RETROCEDER, 100, 5));
+end
+
+// ao chocar com outro robot que nao seja a vitima 
+//(ou se ela nao existe), sair "rebotado" no angulo oposto
+//   (tem prioridade 5 para evitar que outras acoes "normais" nos deixem estancados)  
+rule "choque com outro robot"
+when
+   HitRobotEvent($nome: name, $anguloRelativo: bearing)
+   (or (not (exists vitima()))
+       (vitima(nome != $nome)))
+then
+   insert(new Accion(Accion.GIRAR_TANQUE_DER, (- $anguloRelativo*1.50), 5));
+   insert(new Accion(Accion.AVANZAR, 100, 5));
+end
+

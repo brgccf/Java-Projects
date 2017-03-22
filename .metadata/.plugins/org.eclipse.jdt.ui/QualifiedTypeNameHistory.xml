@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="Streams.Leitor"/>
-<fullyQualifiedTypeName name="brgccfStreams.Reader"/>
-<fullyQualifiedTypeName name="brgccfStreams.Writer"/>
 <fullyQualifiedTypeName name="java.net.NetworkInterface"/>
 <fullyQualifiedTypeName name="java.io.FileWriter"/>
 <fullyQualifiedTypeName name="java.io.ByteArrayOutputStream"/>
 <fullyQualifiedTypeName name="java.io.FileNotFoundException"/>
-<fullyQualifiedTypeName name="java.io.ObjectInputStream"/>
 <fullyQualifiedTypeName name="java.io.ObjectOutputStream"/>
 <fullyQualifiedTypeName name="sockets.TCPClient"/>
 <fullyQualifiedTypeName name="javax.swing.JFileChooser"/>
@@ -17,8 +13,6 @@
 <fullyQualifiedTypeName name="java.io.InputStream"/>
 <fullyQualifiedTypeName name="java.io.BufferedInputStream"/>
 <fullyQualifiedTypeName name="sockets.TCPServer"/>
-<fullyQualifiedTypeName name="java.io.DataOutputStream"/>
-<fullyQualifiedTypeName name="java.io.DataInputStream"/>
 <fullyQualifiedTypeName name="java.io.OutputStream"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="javax.swing.JProgressBar"/>
@@ -30,13 +24,8 @@
 <fullyQualifiedTypeName name="com.codename1.ui.Image"/>
 <fullyQualifiedTypeName name="com.codename1.components.ImageViewer"/>
 <fullyQualifiedTypeName name="com.codename1.components.FileEncodedImage"/>
-<fullyQualifiedTypeName name="java.net.ServerSocket"/>
 <fullyQualifiedTypeName name="java.lang.Runnable"/>
-<fullyQualifiedTypeName name="java.io.BufferedReader"/>
-<fullyQualifiedTypeName name="java.io.InputStreamReader"/>
-<fullyQualifiedTypeName name="java.net.Socket"/>
 <fullyQualifiedTypeName name="java.lang.Exception"/>
-<fullyQualifiedTypeName name="streams.Reader"/>
 <fullyQualifiedTypeName name="javax.swing.plaf.metal.MetalToggleButtonUI"/>
 <fullyQualifiedTypeName name="javax.swing.UIManager"/>
 <fullyQualifiedTypeName name="javax.swing.SwingUtilities"/>
@@ -44,16 +33,31 @@
 <fullyQualifiedTypeName name="server.MainServer"/>
 <fullyQualifiedTypeName name="client.MainClient"/>
 <fullyQualifiedTypeName name="javax.swing.JLabel"/>
-<fullyQualifiedTypeName name="java.lang.Thread"/>
 <fullyQualifiedTypeName name="javax.swing.JButton"/>
-<fullyQualifiedTypeName name="streams.Writer"/>
-<fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
 <fullyQualifiedTypeName name="javax.swing.JTextField"/>
-<fullyQualifiedTypeName name="javax.swing.JTextArea"/>
 <fullyQualifiedTypeName name="java.awt.Font"/>
 <fullyQualifiedTypeName name="java.net.DatagramSocket"/>
 <fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="javax.swing.JToolBar"/>
 <fullyQualifiedTypeName name="java.net.DatagramPacket"/>
 <fullyQualifiedTypeName name="java.io.BufferedOutputStream"/>
+<fullyQualifiedTypeName name="streams.Reader"/>
+<fullyQualifiedTypeName name="java.net.Socket"/>
+<fullyQualifiedTypeName name="java.rmi.server.SocketSecurityException"/>
+<fullyQualifiedTypeName name="java.net.ServerSocket"/>
+<fullyQualifiedTypeName name="java.io.DataOutputStream"/>
+<fullyQualifiedTypeName name="java.io.DataInputStream"/>
+<fullyQualifiedTypeName name="java.io.ObjectInputStream"/>
+<fullyQualifiedTypeName name="streams.Writer"/>
+<fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="javax.swing.JTextArea"/>
+<fullyQualifiedTypeName name="model.Song"/>
+<fullyQualifiedTypeName name="iot.Sensor"/>
+<fullyQualifiedTypeName name="java.net.URL"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="java.io.BufferedReader"/>
+<fullyQualifiedTypeName name="java.io.InputStreamReader"/>
+<fullyQualifiedTypeName name="net.sf.json.JSONObject"/>
+<fullyQualifiedTypeName name="net.sf.json.JSONArray"/>
 </qualifiedTypeNameHistroy>

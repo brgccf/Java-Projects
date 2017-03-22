@@ -1,0 +1,37 @@
+package Grupo4
+
+import Grupo4.*;
+import robocode.*;
+import robocode.ScannedRobotEvent;
+
+
+//para guardar as açoes que serao executadas
+query "consulta_acciones"
+  accion: Accion()
+end
+
+
+// 
+// REGRAS
+//
+
+
+// utilizar para armazenar informaçao de vitima encontrada
+declare vitima
+   nome: String
+   x: double
+   y: double
+   distancia: double
+end
+
+
+// Se nao encontrou robos, giro todo o radar
+rule "sem robos a vista -> girar radar em 360"
+when
+  not (exists ScannedRobotEvent())
+then
+  insert (new Accion(Accion.GIRAR_RADAR_DER, 360, 1));
+  System.out.println("giro de radar");
+end
+
+

@@ -2,52 +2,66 @@ package server;
 
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JToolBar;
 
 import streams.Reader;
 import streams.Writer;
 
 public class MainServer implements Runnable {
-
+	private Reader read;
 	private static int port;
-	private JTextField textField;
 	private JTextArea lblMsg;
-	private Writer write;
-	private JToolBar toolBar;
-	public MainServer(int port, JTextField textField, JTextArea lblMsg, JToolBar toolbar)
+	private Socket server;
+	@SuppressWarnings("static-access")
+	public MainServer(int port, JTextArea lblMsg)
 	{
-		this.toolBar = toolbar;
+		this.read = null;
 		this.lblMsg = lblMsg;
 		this.port = port;
-		this.textField = textField;
+		this.server = null;
 	}
 	
-	public Writer getWriter()
+	public void sendMessage(String msg)
 	{
-		return this.write;
+		if(this.server == null) 
+		{
+			System.out.println("Socket closed!");
+			return;
+		}
+		Writer write = new Writer(this.server, msg, this.lblMsg);
+		Thread wr = new Thread(write);
+		wr.start();
 	}
 	
+	public void disconnect()
+	{
+		try
+		{
+			if(this.server!=null)this.server.close();
+		}catch(Exception e)
+		{
+			System.out.println("exception disconnecting: " + e.getMessage());
+		}
+		
+		this.read.disconnect();
+		Thread.currentThread().interrupt();
+	}
+	
+	@SuppressWarnings("resource")
 	public void run() {
 		
 		try
 		{
 			ServerSocket socketServer = new ServerSocket(port);
-			Socket server = socketServer.accept(); //para aceitar a entrada do servidor
-			Reader read = new Reader(server, this.lblMsg);
-			write = new Writer(server, this.textField);
+			this.server = socketServer.accept(); //para aceitar a entrada do servidor
+			this.read = new Reader(server, this.lblMsg);
 			Thread readth = new Thread(read); 
-			Thread send = new Thread(write);
 			readth.start();
-			send.start();
 		}
 		catch(Exception e)
 		{
 			System.out.println("Server error Exception: " + e.getMessage());
+			
 		}
 
 		

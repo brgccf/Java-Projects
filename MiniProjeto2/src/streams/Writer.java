@@ -3,48 +3,38 @@ package streams;
 import java.io.DataOutputStream;
 import java.net.Socket;
 
-import javax.swing.JTextField;
+import javax.swing.JTextArea;
 //esta classe vai ler a entrada do teclado para enviar para o socket
 public class Writer implements Runnable{
-	private JTextField textField;
 	private Socket server;
-	private boolean write;
-	public Writer(Socket server, JTextField textField)
+	private String msg;
+	private JTextArea txt;
+	public Writer(Socket server, String msg, JTextArea txt)
 	{
-		this.write = false;
+		this.txt = txt;
 		this.server = server;
-		this.textField = textField;
-	}
-	
-	public void setWrite(boolean write)
-	{
-		this.write = write;
+		this.msg = msg;
 	}
 	
 	public void run() {
 		DataOutputStream socketOut; //criando caixa de areia para os dados de saida
 		try{
 			socketOut = new DataOutputStream(this.server.getOutputStream());
-			String message = this.textField.getText();
-			while(true)
-			{
-				if(Thread.currentThread().isInterrupted()) break; //se estiver interrompida sai do laço
-				
-				if(this.write)message = this.textField.getText();
-				else continue;
-				System.out.println("Message = " + message);
-				if(message.equalsIgnoreCase("exit")){
-					socketOut.writeBytes(message+'\n'); //envia o comando de saida
-					socketOut.flush(); //força todos os bytes a serem enviados na stream
-					this.server.close(); //fecha o servidor
-					System.out.println("Writer interrupted!");
-					Thread.currentThread().interrupt();
-				}
-				else{
-					socketOut.writeBytes(message+'\n'); //escrevendo no socket
-				}
-				
+			
+			System.out.println("Message = " + this.msg);
+			if(this.msg.equalsIgnoreCase("exit")){
+				socketOut.writeBytes(this.msg+'\n'); //envia o comando de saida
+				socketOut.flush(); //força todos os bytes a serem enviados na stream
+				this.server.close(); //fecha o servidor
+				System.out.println("Writer interrupted!");
+				Thread.currentThread().interrupt();
 			}
+			else{
+				socketOut.writeBytes(this.msg+'\n'); //escrevendo no socket
+				if(!this.msg.equalsIgnoreCase("rcv"))this.txt.append(this.msg + " ");
+			}
+			
+	
 		}
 		catch(Exception e)
 		{

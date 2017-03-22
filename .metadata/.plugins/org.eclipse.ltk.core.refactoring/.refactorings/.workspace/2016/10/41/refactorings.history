@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename Java project &apos;robocode-drools&apos; to &apos;Grupo4&apos;&#x0D;&#x0A;- Original element: &apos;robocode-drools&apos;&#x0D;&#x0A;- Renamed element: &apos;robocode-drools&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename Java project &apos;robocode-drools&apos;" flags="7" id="org.eclipse.jdt.ui.rename.java.project" input="=robocode-drools" name="Grupo4" references="true" stamp="1475771425230" version="1.0"/>&#x0A;&#x0A;</session>
